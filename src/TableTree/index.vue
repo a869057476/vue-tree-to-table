@@ -14,7 +14,7 @@
               <th v-for="thItem in trItem" :key="thItem.id" :colspan="thItem.colSpan" :rowspan="thItem.rowSpan">
                 <div class="text-center">
                   <slot name="title" :node="thItem">
-                    {{ thItem.name }}
+                    {{ thItem.nodeName }}
                   </slot>
                 </div>
               </th>
@@ -46,7 +46,7 @@
               <th v-for="thItem in trItem" :key="thItem.id" :colspan="thItem.colSpan" :rowspan="thItem.rowSpan">
                 <div class="text-center">
                   <slot name="title" :node="thItem">
-                    {{ thItem.name }}
+                    {{ thItem.nodeName }}
                   </slot>
                 </div>
               </th>
@@ -64,7 +64,15 @@
                   <div v-if="tdData.showFold && isFold" @click="onFold(tdData)">{{ tdData.isFold ? '-' : '+' }}</div>
                   <!-- <i v-if="tdData.nodeLevel <= 2 && isFold" :class="[tdData.isFold ? 'el-icon-minus' : 'el-icon-plus']" @click="onFold(tdData)" /> -->
                   <template v-if="showCheckbox">
-                    <el-checkbox v-if="!tdData.nodeType" v-model="tdData.nodeOptionalStatus.code" class="td-container-checkbox" :disabled="tdData.editType.code === '10' || (disabledCheckboxNodeLevel ? tdData.nodeLevel <= disabledCheckboxNodeLevel : false)" true-label="10" false-label="00" @change="val => onCheck(val, tdData)">{{ tdData.nodeName }}</el-checkbox>
+                    <el-checkbox
+                      v-if="!tdData.nodeType"
+                      v-model="tdData.isChecked"
+                      class="td-container-checkbox"
+                      :disabled="(tdData.editable === falseEditLabel) || (disabledCheckboxNodeLevel ? tdData.nodeLevel <= disabledCheckboxNodeLevel : false) || (disabledCheckboxLevels ? disabledCheckboxLevels.includes(tdData.nodeLevel) : false) || (disabledCheckboxIds ? disabledCheckboxIds.includes(tdData.id) : false)"
+                      :true-label="trueCheckLabel"
+                      :false-label="falseCheckLabel"
+                      @change="val => onCheck(val, tdData)"
+                      >{{ tdData.nodeName }}</el-checkbox>
                     <slot v-if="tdData.nodeType || showCheckboxAndSlot" name="node" :node="tdData" />
                   </template>
                   <template v-else>
@@ -111,6 +119,26 @@ export default {
       type: Boolean,
       default: false
     },
+    // checkbox选中的别名
+    trueCheckLabel: {
+      type: [Boolean, String, Number],
+      default: true
+    },
+    // checkbox未选中的别名
+    falseCheckLabel: {
+      type: [Boolean, String, Number],
+      default: false
+    },
+    // checkbox可编辑的别名
+    trueEditLabel: {
+      type: [Boolean, String, Number],
+      default: false
+    },
+    // checkbox不可编辑的别名
+    falseEditLabel: {
+      type: [Boolean, String, Number],
+      default: true
+    },
     // 是否显示表头
     isShowTableHead: {
       type: Boolean,
@@ -149,10 +177,20 @@ export default {
       type: [String, Number],
       default: 'auto'
     },
-    // 置灰checkbox的层级
+    // 置灰checkbox的前几个层级
     disabledCheckboxNodeLevel: {
       type: Number,
       default: 0
+    },
+    // 置灰checkbox的层级
+    disabledCheckboxLevels: {
+      type: Array,
+      default: () => []
+    },
+    // 置灰checkbox的ids
+    disabledCheckboxIds: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
@@ -341,14 +379,17 @@ export default {
         setNodeStatus(this.treeData, node, val)
         // console.log(this.treeData)
       } else {
-        if (val === '10') {
+        if (val === this.trueCheckLabel) {
           const parentAll = getAllParentNodeList(this.treeData, node.id)
           // console.log(parentAll)
-          setParentCheckYes(this.treeData, parentAll, '10')
-          setChildrenCheck(this.treeData, node, '10')
-        } else if (val === '00') {
-          setChildrenCheck(this.treeData, node, '00')
-          parentShouldUnCheck(this.treeData, node)
+          setParentCheckYes(this.treeData, parentAll, this.trueCheckLabel, this.trueEditLabel)
+          setChildrenCheck(this.treeData, node, this.trueCheckLabel, this.trueEditLabel)
+        } else if (val === this.falseCheckLabel) {
+          setChildrenCheck(this.treeData, node, this.falseCheckLabel, this.trueEditLabel)
+          parentShouldUnCheck(this.treeData, node, {
+            trueCheckLabel: this.trueCheckLabel,
+            falseCheckLabel: this.falseCheckLabel
+          })
         }
       }
       console.log(this.treeData)
@@ -360,7 +401,7 @@ export default {
     },
     // 获取所有选中的节点
     getCheckedNodeList() {
-      const checkedNodeList = getAllCheckedNodeList(this.treeData)
+      const checkedNodeList = getAllCheckedNodeList(this.treeData, this.trueCheckLabel)
       return checkedNodeList
     },
     // 重置节点勾选状态
@@ -368,7 +409,7 @@ export default {
       const rev = data => {
         data.map(e => {
           if (list.includes(e.id)) {
-            e.nodeOptionalStatus.code = '00'
+            e.isChecked = this.falseCheckLabel
           }
           if (Array.isArray(e.chidrenList)) {
             rev(e.chidrenList)

@@ -110,11 +110,11 @@ export function filterTreeByFoldStatus(arr) {
  * @param {Array} tree
  * @return {Array}
  */
-export function getAllCheckedNodeList(tree) {
+export function getAllCheckedNodeList(tree, trueCheckLabel) {
   const checkedList = []
   const rev = data => {
     data.forEach(e => {
-      if (e.nodeOptionalStatus.code === '10') {
+      if (e.isChecked === trueCheckLabel) {
         checkedList.push(e)
       }
       if (Array.isArray(e.chidrenList)) {
@@ -136,7 +136,7 @@ export function getAllCheckedNodeList(tree) {
 export function setNodeStatus(tree, node, status) {
   tree.map(e => {
     if (node.id === e.id) {
-      e.nodeOptionalStatus.code = status
+      e.isChecked = status
     } else {
       if (Array.isArray(e.chidrenList)) {
         setNodeStatus(e.chidrenList, node, status)
@@ -190,13 +190,13 @@ export function getAllParentNodeList(tree, nodeId) {
  * @param {String} status
  * @return {null}
  */
-export function setParentCheckYes(tree, checkedNodeList, status) {
+export function setParentCheckYes(tree, checkedNodeList, status, trueEditLabel) {
   tree.map(e => {
-    if (checkedNodeList.includes(e.id) && e.editType.code === '00') {
-      e.nodeOptionalStatus.code = status
+    if (checkedNodeList.includes(e.id) && e.editable === trueEditLabel) {
+      e.isChecked = status
     }
     if (Array.isArray(e.chidrenList)) {
-      setParentCheckYes(e.chidrenList, checkedNodeList, status)
+      setParentCheckYes(e.chidrenList, checkedNodeList, status, trueEditLabel)
     }
     return e
   })
@@ -209,13 +209,13 @@ export function setParentCheckYes(tree, checkedNodeList, status) {
  * @param {String} status
  * @return {null}
  */
-export function setChildrenCheck(tree, node, status) {
+export function setChildrenCheck(tree, node, status, trueEditLabel) {
   tree.map(item => {
     if (node.id === item.id) {
       const rev = (data) => {
         data.map(e => {
-          if (e.editType.code === '00') {
-            e.nodeOptionalStatus.code = status
+          if (e.editable === trueEditLabel) {
+            e.isChecked = status
           }
           if (e && e.chidrenList.length > 0) {
             rev(e.chidrenList)
@@ -226,7 +226,7 @@ export function setChildrenCheck(tree, node, status) {
       rev(item.chidrenList)
     } else {
       if (item && item.chidrenList.length > 0) {
-        setChildrenCheck(item.chidrenList, node, status)
+        setChildrenCheck(item.chidrenList, node, status, trueEditLabel)
       }
     }
     return item
@@ -261,17 +261,17 @@ export function recursionTreeForNode(tree, nodeId) {
  * @param {Object} node
  * @return {null}
  */
-export function parentShouldUnCheck(arr, node) {
+export function parentShouldUnCheck(arr, node, statusObj) {
   const parentNode = recursionTreeForNode(arr, node.parentId)
   if (!parentNode.chidrenList) return
   const isShouldCheck = parentNode.chidrenList.some(e => {
-    return e.nodeOptionalStatus.code === '10'
+    return e.isChecked === statusObj.trueCheckLabel
   })
   // 如果子级全部未勾选，父级也取消勾选
   if (!isShouldCheck) {
-    parentNode.nodeOptionalStatus.code = '00'
+    parentNode.isChecked = statusObj.falseCheckLabel
   }
   if (parentNode.nodeLevel > 1) {
-    parentShouldUnCheck(arr, parentNode)
+    parentShouldUnCheck(arr, parentNode, statusObj)
   }
 }
