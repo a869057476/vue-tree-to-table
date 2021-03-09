@@ -4,7 +4,7 @@
  * @Author: huangwei
  * @Date: 2021-03-06 12:48:31
  * @LastEditors: huangwei
- * @LastEditTime: 2021-03-08 21:01:40
+ * @LastEditTime: 2021-03-09 21:48:55
 -->
 <template>
   <div>
@@ -137,6 +137,16 @@
       show-checkbox
       :disabled-checkbox-ids="['body1-1', 'body1-1-1']"
     />
+    <h4>额外列</h4>
+    <p>可以在树的每一个叶子节点后拼接额外的列用于展示其他信息</p>
+    <p>extraColumn需要设置为true，默认是false</p>
+    <p>extraColumnObj需要设置一个Object，包括columns和list</p>
+    <TableTree
+      :origin-data="originData"
+      :table-columns="tableColumns"
+      :extra-column-obj="extraColumnObj"
+      extra-column
+    />
   </div>
 </template>
 
@@ -151,10 +161,28 @@ export default {
   data() {
     return {
       data: {
-        name: '123',
         originData: [],
         originData2: [],
-        tableColumns: []
+        tableColumns: [],
+        extraColumnObj: {
+          columns: [
+            {
+              id: null,
+              nodeType: 'extra',
+              nodeName: '额外表头1',
+              rowspan: 1,
+              colspan: 1
+            },
+            {
+              id: null,
+              nodeType: 'extra',
+              nodeName: '额外表头2',
+              rowspan: 1,
+              colspan: 1
+            }
+          ],
+          list: []
+        }
       }
     }
   },
@@ -565,6 +593,50 @@ export default {
         ]
       }
     ]
+    this.extraColumnObj = {
+      columns: [
+        {
+          id: null,
+          nodeType: 'extra',
+          nodeName: '额外表头1',
+          rowspan: 1,
+          colspan: 1
+        },
+        {
+          id: null,
+          nodeType: 'extra',
+          nodeName: '额外表头2',
+          rowspan: 1,
+          colspan: 1
+        }
+      ],
+      list: []
+    }
+    console.log(this.extraColumnObj)
+    new Array(11).fill().forEach((tr, trIndex) => {
+      const trTemp = [
+        {
+          nodeType: 'extra',
+          id: `extra-${trIndex}-0`,
+          colspan: 1,
+          rowspan: 1,
+          // parentId: e.id,
+          nodeName: `extra-${trIndex}-0`,
+          value: ''
+        },
+        {
+          nodeType: 'extra',
+          id: `extra-${trIndex}-1`,
+          colspan: 1,
+          rowspan: 1,
+          // parentId: e.id,
+          nodeName: `extra-${trIndex}-1`,
+          value: ''
+        },
+      ]
+      this.extraColumnObj.list.push(trTemp)
+    })
+    console.log(this.extraColumnObj.list)
   }
 }
 </script>
