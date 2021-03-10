@@ -105,6 +105,7 @@ export default {
       type: Boolean,
       default: false
     },
+    // 折叠时
     foldNum: {
       type: Number,
       default: 0
@@ -129,12 +130,12 @@ export default {
       type: [Boolean, String, Number],
       default: false
     },
-    // checkbox可编辑的别名
+    // checkbox置灰的别名
     trueEditLabel: {
       type: [Boolean, String, Number],
       default: false
     },
-    // checkbox不可编辑的别名
+    // checkbox不置灰的别名
     falseEditLabel: {
       type: [Boolean, String, Number],
       default: true
@@ -344,13 +345,13 @@ export default {
         }
         const tableTree = new TableTree(config)
         this.trList = tableTree.generate(this.extraColumn, this.extraColumnObj)
-        console.log(this.trList)
+        // console.log(this.trList)
       }
     },
     // 重新进行过滤渲染，因为展开折叠修改了数据源实现的
     refreshTable() {
       const handleTreeData = JSON.parse(JSON.stringify(this.treeData))
-      console.log(handleTreeData)
+      // console.log(handleTreeData)
       if (this.isFold) {
         // 递归过滤树结构收起的节点
         filterTreeByFoldStatus(handleTreeData)
