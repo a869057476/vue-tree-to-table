@@ -94,6 +94,10 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import { Checkbox } from 'element-ui'
+Vue.component(Checkbox.name, Checkbox)
+
 import TableTree from './utils/tableTree'
 import { setTreeFoldStatus, filterTreeByFoldStatus, setTreeFold, getAllCheckedNodeList, getAllParentNodeList, setNodeStatus, setParentCheckYes, setChildrenCheck, parentShouldUnCheck } from './utils'
 // import { recursionTreeForMap, getTreeMaxLevel, setTreeFoldStatus, filterTreeByFoldStatus, setTreeFold, getAllCheckedNodeList, getAllParentNodeList, setNodeStatus, setParentCheckYes, setChildrenCheck, parentShouldUnCheck } from './utils'
