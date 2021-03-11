@@ -1,6 +1,6 @@
 {
 	"name": "vue-tree-to-table",
-	"version": "1.0.1",
+	"version": "1.0.4",
 	"description": "",
 	"main": "dist/vueTreeToTable.min.js",
 	"scripts": {
@@ -43,7 +43,6 @@
 		"webpack-dev-server": "^2.9.5"
 	},
 	"dependencies": {
-		"element-ui": "^2.15.1",
 		"vue": "^2.6.12"
 	}
 }

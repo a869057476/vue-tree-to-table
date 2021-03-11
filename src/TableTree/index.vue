@@ -64,7 +64,7 @@
                   <div v-if="tdData.showFold && isFold" @click="onFold(tdData)">{{ tdData.isFold ? '-' : '+' }}</div>
                   <!-- <i v-if="tdData.nodeLevel <= 2 && isFold" :class="[tdData.isFold ? 'el-icon-minus' : 'el-icon-plus']" @click="onFold(tdData)" /> -->
                   <template v-if="showCheckbox">
-                    <el-checkbox
+                    <Checkbox
                       v-if="!tdData.nodeType"
                       v-model="tdData.isChecked"
                       class="td-container-checkbox"
@@ -72,7 +72,7 @@
                       :true-label="trueCheckLabel"
                       :false-label="falseCheckLabel"
                       @change="val => onCheck(val, tdData)"
-                      >{{ tdData.nodeName }}</el-checkbox>
+                      >{{ tdData.nodeName }}</Checkbox>
                     <slot v-if="tdData.nodeType || showCheckboxAndSlot" name="node" :node="tdData" />
                   </template>
                   <template v-else>
@@ -94,15 +94,16 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import { Checkbox } from 'element-ui'
-Vue.component(Checkbox.name, Checkbox)
+import Checkbox from '../Checkbox/index.vue'
 
 import TableTree from './utils/tableTree'
 import { setTreeFoldStatus, filterTreeByFoldStatus, setTreeFold, getAllCheckedNodeList, getAllParentNodeList, setNodeStatus, setParentCheckYes, setChildrenCheck, parentShouldUnCheck } from './utils'
 // import { recursionTreeForMap, getTreeMaxLevel, setTreeFoldStatus, filterTreeByFoldStatus, setTreeFold, getAllCheckedNodeList, getAllParentNodeList, setNodeStatus, setParentCheckYes, setChildrenCheck, parentShouldUnCheck } from './utils'
 export default {
   name: 'TableTree',
+  components: {
+    Checkbox
+  },
   props: {
     // 是否启用展开折叠：是-true | 否-false
     isFold: {

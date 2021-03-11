@@ -4,10 +4,31 @@
  * @Author: huangwei
  * @Date: 2021-03-06 12:48:31
  * @LastEditors: huangwei
- * @LastEditTime: 2021-03-10 21:12:41
+ * @LastEditTime: 2021-03-12 00:23:31
 -->
 <template>
   <div>
+    <!-- <input type="button" @click="showLog" value="button" />
+    <Checkbox
+      v-model="check1"
+    >check1</Checkbox>
+    <Checkbox
+      v-model="check2"
+      label="check2"
+      disabled
+    ></Checkbox>
+    <Checkbox
+      v-model="check3"
+      label="check3"
+      true-label="10"
+      false-label="00"
+    ></Checkbox>
+    <Checkbox
+      v-model="check4"
+      label="check4"
+      true-label="10"
+      false-label="00"
+    ></Checkbox> -->
     <h2>属性说明</h2>
     <table class="table-explain" border="1px" cellspacing="0">
       <thead>
@@ -681,14 +702,20 @@
 
 <script>
 import TableTree from './TableTree/index.vue'
+import Checkbox from './Checkbox/index.vue'
 
 export default {
   name: 'App',
   components: {
-    TableTree
+    TableTree,
+    Checkbox
   },
   data() {
     return {
+      check1: false,
+      check2: true,
+      check3: '10',
+      check4: '00',
       originData: [],
       originData2: [],
       tableColumns: [],
@@ -1145,6 +1172,14 @@ export default {
     })
     console.log(this.extraColumnObj)
     console.log(JSON.stringify(this.extraColumnObj))
+  },
+  methods: {
+    showLog() {
+      console.log(this.check1)
+      console.log(this.check2)
+      console.log(this.check3)
+      console.log(this.check4)
+    }
   }
 }
 </script>
