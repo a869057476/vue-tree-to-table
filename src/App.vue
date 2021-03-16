@@ -4,7 +4,7 @@
  * @Author: huangwei
  * @Date: 2021-03-06 12:48:31
  * @LastEditors: huangwei
- * @LastEditTime: 2021-03-12 00:23:31
+ * @LastEditTime: 2021-03-16 21:51:19
 -->
 <template>
   <div>
@@ -161,8 +161,8 @@
           <td>false</td>
         </tr>
         <tr>
+          <td>extraColumnObj</td>
           <td>额外列的数据，仅当extraColumn为true时生效</td>
-          <td>是否后面额外有固定的列拼接</td>
           <td>Object</td>
           <td>-</td>
           <td>{columns: [], list: []}</td>
@@ -697,6 +697,43 @@
       :extra-column-obj="extraColumnObj"
       extra-column
     />
+    <h2>方法说明</h2>
+    <table class="table-explain" border="1px" cellspacing="0">
+      <thead>
+        <tr>
+          <th>方法名</th>
+          <th>说明</th>
+          <th>参数</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>getTreeData()</td>
+          <td>获取树的数据</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>getCheckedNodeList()</td>
+          <td>获取所有选中的节点</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>resetCheckedNode(list)</td>
+          <td>重置节点勾选状态</td>
+          <td>list: Array</td>
+        </tr>
+        <tr>
+          <td>changeNodeValue(list, key, value)</td>
+          <td>修改节点属性的值</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>getExtraNodeList()</td>
+          <td>获取额外列的节点数据</td>
+          <td>-</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
