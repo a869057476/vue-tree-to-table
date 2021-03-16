@@ -5,7 +5,7 @@
 	"main": "dist/vueTreeToTable.min.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "webpack-dev-server --hot --inline",
+		"start": "webpack-dev-server --hot --inline --open",
 		"build": "webpack --display-error-details --config webpack.config.js"
 	},
 	"repository": {
