@@ -32,7 +32,7 @@
  
 | Parameters | Description | Type | Optional value |Default value |
 |---------- |-------- |---------- |---------- |---------- |
-| tableColumns | 动态表头 | 	Array | Y |	[] |
+| tableColumns | 动态表头 | Array | Y |	[] |
 | originData | 树形数据 | Array | Y | [] |
 | isFold | 是否折叠 | Boolean | - | false | 
 | foldNum | 折叠层级，仅当foldNum为true时生效，到某一层级时子级能全部展开，默认是一层一层的展开 | Number | - | 0 |
@@ -50,6 +50,17 @@
 | height | table传入的高度 | String, Number | - | 'auto' |
 | extraColumn | 是否后面额外有固定的列拼接 | Boolean | - | false |
 | extraColumnObj | 额外列的数据，仅当extraColumn为true时生效 | Object | - | 	{columns: [], list: []} |
+
+# methods
+### Important!(All the example how to use in this repository, you can download and reference it.)
+ 
+| name | Description | parameter |
+|----------|----------|----------|
+| getTreeData() | 获取树的数据 | - |
+| getCheckedNodeList() | 获取所有选中的节点 | - |
+| resetCheckedNode(list) | 重置节点勾选状态 | list: Array |
+| changeNodeValue(list, key, value) | 修改节点属性的值 | - |
+| getExtraNodeList() | 	获取额外列的节点数据 | - |
 
 ## Getting started
 
