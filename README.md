@@ -32,35 +32,35 @@
  
 | Parameters | Description | Type | Optional value |Default value |
 |---------- |-------- |---------- |---------- |---------- |
-| tableColumns | 动态表头 | Array | Y |	[] |
-| originData | 树形数据 | Array | Y | [] |
-| isFold | 是否折叠 | Boolean | - | false | 
-| foldNum | 折叠层级，仅当foldNum为true时生效，到某一层级时子级能全部展开，默认是一层一层的展开 | Number | - | 0 |
-| showCheckbox | 是否显示复选框 | Boolean | - | false |
-| showCheckboxAndSlot | 是否同时显示复选框和slot，仅当showCheckbox为true时生效 | Boolean | - | false |
-| checkStrictly | 是否严格的遵循父子不互相关联，仅当showCheckbox为true时生效 | Boolean | - | false |
-| trueCheckLabel | checkbox选中的别名，仅当showCheckbox为true时生效 | Boolean | - | false |
-| falseCheckLabel | checkbox未选中的别名，仅当showCheckbox为true时生效 | Boolean | - | false |
-| trueEditLabel | checkbox置灰的别名，仅当showCheckbox为true时生效 | Boolean | - | false |
-| falseEditLabel | checkbox不置灰的别名，仅当showCheckbox为true时生效 | Boolean | - | false |
-| disabledCheckboxNodeLevel | 置灰checkbox的前几个层级，仅当showCheckbox为true时生效 | Number | - | 0 |
-| disabledCheckboxLevels | 置灰checkbox的层级，仅当showCheckbox为true时生效 | Array | - | [] |
-| disabledCheckboxIds | 置灰checkbox的ids，仅当showCheckbox为true时生效 | Array | - | [] |
-| isShowTableHead | 是否显示表头 | Boolean | - | false |
-| height | table传入的高度 | String, Number | - | 'auto' |
-| extraColumn | 是否后面额外有固定的列拼接 | Boolean | - | false |
-| extraColumnObj | 额外列的数据，仅当extraColumn为true时生效 | Object | - | 	{columns: [], list: []} |
+| tableColumns | Dynamic header | Array | Y |	[] |
+| originData | Tree data | Array | Y | [] |
+| isFold | Whether the folding | Boolean | - | false | 
+| foldNum | Folding level,  effected only if foldNum is true, to a certain level the child can fully deployed, the default is one layer | Number | - | 0 |
+| showCheckbox | Whether to display the check box | Boolean | - | false |
+| showCheckboxAndSlot | Whether to display both check boxes and slot, only if showCheckBox is true | Boolean | - | false |
+| checkStrictly | Whether to strictly follow the parent-child correlation, only if showCheckbox is true | Boolean | - | false |
+| trueCheckLabel | Alias for checkbox checked, only if showCheckbox is true | Boolean | - | false |
+| falseCheckLabel | Alias for checkbox unchecked, only if showCheckbox is true | Boolean | - | false |
+| trueEditLabel | Alias for checkbox disabled, only if showCheckbox is true | Boolean | - | false |
+| falseEditLabel | Alias for checkbox not disabled, only if showCheckbox is true | Boolean | - | false |
+| disabledCheckboxNodeLevel | The first few levels of the disabled checkbox, only if showCheckbox is true | Number | - | 0 |
+| disabledCheckboxLevels | The level of the disabled checkbox, only if showCheckbox is true | Array | - | [] |
+| disabledCheckboxIds | Disabled the IDS of the checkbox, only if showCheckbox is true | Array | - | [] |
+| isShowTableHead | Whether to display the header | Boolean | - | false |
+| height | Table height | String, Number | - | 'auto' |
+| extraColumn | Whether there is additional fixed column concatenation behind it | Boolean | - | false |
+| extraColumnObj | Data for additional columns, only if extraColumn is true | Object | - | 	{columns: [], list: []} |
 
 # methods
 ### Important!(All the example how to use in this repository, you can download and reference it.)
  
 | name | Description | parameter |
 |----------|----------|----------|
-| getTreeData() | 获取树的数据 | - |
-| getCheckedNodeList() | 获取所有选中的节点 | - |
-| resetCheckedNode(list) | 重置节点勾选状态 | list: Array |
-| changeNodeValue(list, key, value) | 修改节点属性的值 | - |
-| getExtraNodeList() | 	获取额外列的节点数据 | - |
+| getTreeData() | Gets the data for the tree | - |
+| getCheckedNodeList() | Gets all selected nodes | - |
+| resetCheckedNode(list) | Reset the node checkbox status | list: Array |
+| changeNodeValue(list, key, value) | Modify the value of the node attribute | - |
+| getExtraNodeList() | 	Gets the node data for the additional columns | - |
 
 ## Getting started
 
